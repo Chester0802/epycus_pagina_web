@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epycus — Convierte tu día a día en una aventura</title>
+    <meta name="description" content="Epycus convierte tus hábitos, estudio y bienestar diario en una aventura con misiones, niveles y personajes. Descarga la app para Android o entra desde la web.">
+    <meta property="og:title" content="Epycus — Convierte tu día a día en una aventura">
+    <meta property="og:description" content="Hábitos, misiones, Pomodoro, diario de ánimo y un asistente con IA, con progreso y personajes estilo RPG.">
+    <meta property="og:image" content="https://epycus.es/img/login-hero.webp">
+    <meta property="og:url" content="https://epycus.es">
+    <link rel="icon" type="image/webp" href="img/logo.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           Variables — mismas paletas que la app web (variables.css):
+           claro = kawaii pastel, oscuro = Solo Leveling.
+           ============================================================ */
+        :root {
+            --bg-primary: #fef5ff;
+            --bg-secondary: #fff0f9;
+            --bg-elevated: #ffe8f5;
+            --surface: #ffffff;
+            --surface-border: #ffd9f0;
+            --text-primary: #4a2545;
+            --text-secondary: #7d5f7a;
+            --text-tertiary: #8a6b86;
+            --text-on-accent: #ffffff;
+            --accent: #ff6b9d;
+            --accent-hover: #ff4d85;
+            --accent-light: #ffe5f0;
+            --accent-2: #c77dff;
+            --accent-2-hover: #b565ff;
+            --success: #7ed957;
+            --shadow-md: 0 4px 8px -1px rgba(255, 107, 157, 0.12), 0 2px 6px -1px rgba(255, 107, 157, 0.08);
+            --shadow-lg: 0 10px 20px -3px rgba(255, 107, 157, 0.15), 0 4px 8px -2px rgba(255, 107, 157, 0.1);
+            --shadow-xl: 0 20px 30px -5px rgba(255, 107, 157, 0.2), 0 10px 15px -5px rgba(255, 107, 157, 0.15);
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.25rem;
+            --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Nunito', 'Inter', sans-serif;
+            --hero-grad-a: rgba(254, 245, 255, 0);
+            --hero-grad-b: rgba(254, 245, 255, 1);
+            --nav-bg: rgba(254, 245, 255, 0.85);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #0f1419;
+            --bg-elevated: #161b26;
+            --surface: #0f1419;
+            --surface-border: #2d1b4e;
+            --text-primary: #e8eaed;
+            --text-secondary: #a8b3cf;
+            --text-tertiary: #6b7a99;
+            --text-on-accent: #ffffff;
+            --accent: #8b5cf6;
+            --accent-hover: #a78bfa;
+            --accent-light: #2d1b4e;
+            --accent-2: #6366f1;
+            --accent-2-hover: #818cf8;
+            --success: #22c55e;
+            --shadow-md: 0 4px 8px -1px rgba(139, 92, 246, 0.2), 0 2px 6px -1px rgba(139, 92, 246, 0.15);
+            --shadow-lg: 0 10px 20px -3px rgba(139, 92, 246, 0.3), 0 4px 8px -2px rgba(139, 92, 246, 0.2);
+            --shadow-xl: 0 20px 30px -5px rgba(139, 92, 246, 0.4), 0 10px 15px -5px rgba(139, 92, 246, 0.3);
+            --radius-md: 0.5rem;
+            --radius-lg: 0.625rem;
+            --radius-xl: 0.75rem;
+            --font-display: 'Orbitron', 'Inter', sans-serif;
+            --hero-grad-a: rgba(10, 14, 26, 0);
+            --hero-grad-b: rgba(10, 14, 26, 1);
+            --nav-bg: rgba(10, 14, 26, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-base);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 300ms ease, color 300ms ease;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
+
+        img { max-width: 100%; display: block; }
+
+        .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ===================== NAVBAR ===================== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--surface-border);
+        }
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 1.5rem;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .brand img { width: 38px; height: 38px; border-radius: 10px; }
+        .brand span {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+        .nav-links a.nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.925rem;
+            transition: color 150ms ease;
+        }
+        .nav-links a.nav-link:hover { color: var(--accent); }
+        .theme-toggle {
+            background: var(--bg-elevated);
+            border: 1px solid var(--surface-border);
+            border-radius: 999px;
+            width: 40px; height: 40px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 200ms ease, background 200ms ease;
+        }
+        .theme-toggle:hover { transform: rotate(20deg) scale(1.08); }
+
+        /* ===================== BOTONES ===================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-base);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.8rem 1.7rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 200ms ease, background 200ms ease;
+            white-space: nowrap;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: var(--text-on-accent);
+            box-shadow: var(--shadow-lg);
+        }
+        .btn-primary:hover { box-shadow: var(--shadow-xl); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        .btn-outline:hover { background: var(--accent-light); }
+        .btn-sm { padding: 0.5rem 1.15rem; font-size: 0.875rem; }
+        .btn-lg { padding: 1rem 2.2rem; font-size: 1.1rem; }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            position: relative;
+            padding-top: 76px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -180px; right: -180px;
+            width: 480px; height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            min-height: calc(92vh - 76px);
+            padding: 3rem 0;
+        }
+        .hero-visual {
+            position: relative;
+        }
+        .hero-visual .frame {
+            border-radius: calc(var(--radius-xl) * 1.6);
+            overflow: hidden;
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--shadow-xl);
+            transform: rotate(1.5deg);
+            transition: transform 400ms ease;
+        }
+        .hero-visual:hover .frame { transform: rotate(0deg) scale(1.01); }
+        .hero-visual img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-visual::after {
+            content: "";
+            position: absolute;
+            inset: 12% -6% -6% 10%;
+            border-radius: calc(var(--radius-xl) * 1.6);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            opacity: 0.22;
+            z-index: -1;
+            transform: rotate(-2deg);
+        }
+        @media (max-width: 860px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 2.2rem; min-height: 0; }
+            .hero-visual { max-width: 480px; margin: 0 auto; }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--surface-border);
+        }
+        .hero h1 {
+            font-size: clamp(2.1rem, 5vw, 3.4rem);
+            font-weight: 900;
+            margin-bottom: 1.25rem;
+        }
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .hero-meta {
+            margin-top: 1.4rem;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ===================== SECCIONES ===================== */
+        section { padding: 5rem 0; }
+        .section-head { text-align: center; max-width: 640px; margin: 0 auto 3.25rem; }
+        .section-head h2 {
+            font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+        .section-head p { color: var(--text-secondary); font-size: 1.05rem; }
+
+        /* ===================== FEATURES ===================== */
+        .features { background: var(--bg-secondary); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius-xl);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 250ms ease, box-shadow 250ms ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+        .feature-icon {
+            font-size: 1.7rem;
+            width: 56px; height: 56px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent-light);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.1rem;
+        }
+        .feature-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* ===================== PERSONAJES ===================== */
+        .personajes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.75rem;
+        }
+        .personaje-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 250ms ease, box-shadow 250ms ease;
+        }
+        .personaje-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: var(--shadow-xl);
+        }
+        .personaje-card .img-wrap {
+            background: var(--bg-elevated);
+            aspect-ratio: 1402 / 1122;
+            overflow: hidden;
+        }
+        .personaje-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 400ms ease;
+        }
+        .personaje-card:hover img { transform: scale(1.04); }
+        .personaje-card .caption { padding: 1.2rem 1.4rem 1.4rem; }
+        .personaje-card .caption h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.3rem; }
+        .personaje-card .caption p { color: var(--text-secondary); font-size: 0.9rem; }
+        .pill {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            margin-bottom: 0.55rem;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        /* ===================== DESCARGA ===================== */
+        .descarga { background: var(--bg-secondary); }
+        .descarga-card {
+            position: relative;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            border-radius: calc(var(--radius-xl) * 1.5);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+        }
+        .descarga-card::before {
+            content: "";
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .descarga-card::after {
+            content: "";
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .descarga-card h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+            position: relative; z-index: 1;
+        }
+        .descarga-card p {
+            opacity: 0.92;
+            max-width: 520px;
+            margin: 0 auto 2rem;
+            position: relative; z-index: 1;
+        }
+        .descarga-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative; z-index: 1;
+        }
+        .btn-white {
+            background: #ffffff;
+            color: var(--accent);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+        }
+        .btn-white:hover { box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25); }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.55);
+        }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.26); }
+        .descarga-nota {
+            margin-top: 1.4rem;
+            font-size: 0.82rem;
+            opacity: 0.85;
+            position: relative; z-index: 1;
+        }
+
+        /* ===================== FOOTER ===================== */
+        footer {
+            border-top: 1px solid var(--surface-border);
+            padding: 2.2rem 0;
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-brand { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; }
+        .footer-brand img { width: 26px; height: 26px; border-radius: 7px; }
+        .footer-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 150ms ease;
+        }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* ===================== ANIMACIÓN DE ENTRADA ===================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 600ms ease, transform 600ms ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 640px) {
+            .nav-links a.nav-link { display: none; }
+            .nav-links { gap: 0.6rem; }
+            .brand img { width: 32px; height: 32px; }
+            .brand span { font-size: 1.05rem; }
+            .navbar-inner { padding: 0.6rem 1rem; gap: 0.5rem; }
+            .hero-content { padding: 3rem 0; }
+            section { padding: 3.5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">
+                <img src="img/logo.webp" alt="Logo de Epycus">
+                <span>EPYCUS</span>
+            </a>
+            <div class="nav-links">
+                <a class="nav-link" href="#caracteristicas">Características</a>
+                <a class="nav-link" href="#personajes">Personajes</a>
+                <a class="nav-link" href="#descargar">Descargar</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+                <a class="btn btn-primary btn-sm" href="https://app.epycus.es/Autenticacion/Login">Iniciar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-badge">✨ Productividad + bienestar con estilo RPG</span>
+                    <h1>Convierte tu día a día en una <span class="grad">aventura</span></h1>
+                    <p>
+                        Epycus transforma tus hábitos, tu estudio y tu bienestar diario en una
+                        experiencia con misiones, niveles y personajes — para que mantener la
+                        constancia se sienta como avanzar en un juego, no como una obligación más.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary btn-lg" href="#descargar">📱 Descargar la app</a>
+                        <a class="btn btn-outline btn-lg" href="https://app.epycus.es/Autenticacion/Login">Entrar desde la web</a>
+                    </div>
+                    <p class="hero-meta">Gratis · Android 9.0 o superior · También disponible en tu navegador</p>
+                </div>
+                <div class="hero-visual">
+                    <div class="frame">
+                        <img src="img/login-hero.webp" alt="Personajes de Epycus: conquista tu mejor versión">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================== CARACTERÍSTICAS ===================== -->
+    <section class="features" id="caracteristicas">
+        <div class="container">
+            <div class="section-head reveal">
+                <h2>Todo lo que necesitas, en un solo lugar</h2>
+                <p>Herramientas de productividad y bienestar que se sienten como jugar.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Misiones y hábitos</h3>
+                    <p>Crea misiones con sub-tareas y hábitos diarios con rachas y categorías. Ve tu progreso en tiempo real y construye rutinas que sí se mantienen.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🍅</div>
+                    <h3>Modo Enfoque (Pomodoro)</h3>
+                    <p>Temporizador con ciclos de estudio y descanso configurables, meta diaria, estadísticas de enfoque y notificaciones incluso con la pantalla bloqueada.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📔</div>
+                    <h3>Diario de ánimo</h3>
+                    <p>Registra cómo te sientes cada día, escribe tus notas y consulta tu historial y tendencia de estado de ánimo a lo largo del tiempo.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Edy, tu asistente con IA</h3>
+                    <p>Habla con Edy cuando necesites orientación, ánimo u organizar tus ideas. Entiende el contexto de tu progreso y tu bienestar reciente.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Niveles y personajes</h3>
+                    <p>Gana experiencia por cada hábito cumplido, misión completada o ciclo de enfoque. Sube de nivel, desbloquea logros y evoluciona tu personaje.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privado y seguro</h3>
+                    <p>Tus datos viajan cifrados y tu sesión está protegida. Puedes solicitar la eliminación de tu cuenta y tus datos en cualquier momento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PERSONAJES ===================== -->
+    <section id="personajes">
+        <div class="container">
+            <div class="section-head reveal">
+                <h2>Un personaje que crece contigo</h2>
+                <p>
+                    Elige el personaje de tu carrera universitaria y velo evolucionar a medida
+                    que subes de nivel con tu esfuerzo real de cada día.
+                </p>
+            </div>
+            <div class="personajes-grid">
+                <div class="personaje-card reveal">
+                    <div class="img-wrap">
+                        <img src="img/Personaje-1.png" alt="Personajes de Ingeniería de Sistemas y Arquitectura con sus versiones por nivel" loading="lazy">
+                    </div>
+                    <div class="caption">
+                        <span class="pill">Evoluciona por niveles</span>
+                        <h3>Ingeniería de Sistemas · Arquitectura</h3>
+                        <p>Cada carrera tiene su propio personaje, con versiones que se desbloquean al subir de nivel.</p>
+                    </div>
+                </div>
+                <div class="personaje-card reveal">
+                    <div class="img-wrap">
+                        <img src="img/Personaje-3.png" alt="Personajes de Ingeniería Civil y Medicina con sus versiones por nivel" loading="lazy">
+                    </div>
+                    <div class="caption">
+                        <span class="pill">Evoluciona por niveles</span>
+                        <h3>Ingeniería Civil · Medicina</h3>
+                        <p>Tu constancia se refleja en tu avatar: completa hábitos y misiones para verlo evolucionar.</p>
+                    </div>
+                </div>
+                <div class="personaje-card reveal">
+                    <div class="img-wrap">
+                        <img src="img/Personaje-4.png" alt="Personajes de Derecho y Administración con sus versiones por nivel" loading="lazy">
+                    </div>
+                    <div class="caption">
+                        <span class="pill">Evoluciona por niveles</span>
+                        <h3>Derecho · Administración</h3>
+                        <p>Y seguimos añadiendo más carreras y personajes progresivamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== DESCARGA ===================== -->
+    <section class="descarga" id="descargar">
+        <div class="container">
+            <div class="descarga-card reveal">
+                <h2>Empieza tu aventura hoy</h2>
+                <p>
+                    Descarga Epycus para Android o entra directamente desde tu navegador.
+                    Tu progreso se sincroniza en ambos.
+                </p>
+                <div class="descarga-actions">
+                    <a class="btn btn-white btn-lg" href="descargas/epycus-v1.1.apk" download>⬇️ Descargar APK (v1.1)</a>
+                    <a class="btn btn-ghost btn-lg" href="https://app.epycus.es/Autenticacion/Login">🌐 Usar en el navegador</a>
+                </div>
+                <p class="descarga-nota">
+                    APK ~18 MB · Requiere Android 9.0 o superior · Al instalar, permite la
+                    instalación de orígenes desconocidos si tu teléfono lo solicita.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="img/logo.webp" alt="">
+                <span>© 2026 Epycus. Todos los derechos reservados.</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://app.epycus.es/Autenticacion/Login">Iniciar sesión</a>
+                <a href="/privacidad">Privacidad</a>
+                <a href="/terminos">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ── Tema claro/oscuro (persistido en localStorage, sin base de datos) ──
+            var toggle = document.getElementById('themeToggle');
+            var stored = null;
+            try { stored = localStorage.getItem('epycus-tema'); } catch (_) { }
+            var prefiereOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var tema = stored || (prefiereOscuro ? 'dark' : 'light');
+
+            function aplicarTema(t) {
+                if (t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    toggle.textContent = '☀️';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    toggle.textContent = '🌙';
+                }
+            }
+            aplicarTema(tema);
+
+            toggle.addEventListener('click', function () {
+                tema = tema === 'dark' ? 'light' : 'dark';
+                aplicarTema(tema);
+                try { localStorage.setItem('epycus-tema', tema); } catch (_) { }
+            });
+
+            // ── Animación de entrada al hacer scroll ──
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('visible');
+                            observer.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+            }
+        })();
+    </script>
+</body>
+</html>
