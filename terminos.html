@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones — Epycus</title>
+    <meta name="description" content="Términos y condiciones de uso de Epycus: normas de la cuenta, uso aceptable, asistente de IA, propiedad intelectual y limitación de responsabilidad.">
+    <link rel="icon" type="image/webp" href="img/logo.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fef5ff;
+            --bg-elevated: #ffe8f5;
+            --surface: #ffffff;
+            --surface-border: #ffd9f0;
+            --text-primary: #4a2545;
+            --text-secondary: #7d5f7a;
+            --accent: #ff6b9d;
+            --accent-light: #ffe5f0;
+            --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Nunito', 'Inter', sans-serif;
+            --nav-bg: rgba(254, 245, 255, 0.85);
+            --radius-lg: 1rem;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-elevated: #161b26;
+            --surface: #0f1419;
+            --surface-border: #2d1b4e;
+            --text-primary: #e8eaed;
+            --text-secondary: #a8b3cf;
+            --accent: #8b5cf6;
+            --accent-light: #2d1b4e;
+            --font-display: 'Orbitron', 'Inter', sans-serif;
+            --nav-bg: rgba(10, 14, 26, 0.85);
+            --radius-lg: 0.625rem;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-base);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background 300ms ease, color 300ms ease;
+        }
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--surface-border);
+        }
+        .navbar-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.65rem 1.5rem; max-width: 860px; margin: 0 auto;
+        }
+        .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text-primary); }
+        .brand img { width: 34px; height: 34px; border-radius: 9px; }
+        .brand span { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px; }
+        .nav-derecha { display: flex; align-items: center; gap: 0.8rem; }
+        .nav-derecha a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .nav-derecha a:hover { color: var(--accent); }
+        .theme-toggle {
+            background: var(--bg-elevated); border: 1px solid var(--surface-border);
+            border-radius: 999px; width: 38px; height: 38px; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        main { max-width: 860px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+        h1 { font-family: var(--font-display); font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 900; margin-bottom: 0.4rem; }
+        .fecha { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2.2rem; }
+        h2 {
+            font-family: var(--font-display); font-size: 1.25rem; font-weight: 800;
+            margin: 2.2rem 0 0.7rem; padding-top: 0.5rem;
+        }
+        p, li { color: var(--text-secondary); font-size: 0.975rem; }
+        p { margin-bottom: 0.9rem; }
+        ul { margin: 0 0 0.9rem 1.4rem; }
+        li { margin-bottom: 0.45rem; }
+        strong { color: var(--text-primary); }
+        a { color: var(--accent); }
+        .destacado {
+            background: var(--surface); border: 1px solid var(--surface-border);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-lg); padding: 1.1rem 1.3rem; margin: 1rem 0 1.4rem;
+        }
+        .destacado p:last-child { margin-bottom: 0; }
+        footer { border-top: 1px solid var(--surface-border); padding: 1.8rem 1.5rem; text-align: center; }
+        footer p { font-size: 0.85rem; margin: 0; }
+        footer a { margin: 0 0.6rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="index.html">
+                <img src="img/logo.webp" alt="Logo de Epycus">
+                <span>EPYCUS</span>
+            </a>
+            <div class="nav-derecha">
+                <a href="index.html">← Volver al inicio</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Términos y Condiciones</h1>
+        <p class="fecha">Última actualización: 3 de julio de 2026</p>
+
+        <p>
+            Estos Términos y Condiciones ("Términos") regulan el uso de <strong>Epycus</strong>,
+            disponible como aplicación móvil para Android (paquete <strong>es.epycus.app</strong>)
+            y como aplicación web en <a href="https://app.epycus.es">app.epycus.es</a>
+            (conjuntamente, "el servicio"). Al crear una cuenta o usar el servicio, aceptas
+            estos Términos y nuestra <a href="privacidad.html">Política de Privacidad</a>.
+        </p>
+
+        <h2>1. Descripción del servicio</h2>
+        <p>
+            Epycus es una plataforma de productividad y bienestar personal con elementos de
+            gamificación: te permite crear hábitos y misiones, usar un temporizador de enfoque
+            (Pomodoro), llevar un diario de estado de ánimo, conversar con un asistente de
+            inteligencia artificial (Edy) y ver tu progreso reflejado en niveles, rachas, logros
+            y personajes.
+        </p>
+
+        <h2>2. Edad mínima</h2>
+        <p>
+            Debes tener al menos <strong>13 años</strong> para usar Epycus. Si eres menor de
+            edad según la legislación de tu país, declaras contar con la autorización de tu
+            padre, madre o tutor legal.
+        </p>
+
+        <h2>3. Tu cuenta</h2>
+        <ul>
+            <li>Eres responsable de mantener la confidencialidad de tu contraseña y de toda actividad realizada desde tu cuenta.</li>
+            <li>Te comprometes a proporcionar información veraz al registrarte.</li>
+            <li>La cuenta es personal e intransferible.</li>
+            <li>Puedes eliminar tu cuenta en cualquier momento desde la app (Perfil → Configuración → Eliminar cuenta); consulta la <a href="privacidad.html#eliminar-cuenta">sección de eliminación de datos</a> de la Política de Privacidad.</li>
+        </ul>
+
+        <h2>4. Uso aceptable</h2>
+        <p>Te comprometes a NO:</p>
+        <ul>
+            <li>Usar el servicio con fines ilegales o para dañar a terceros.</li>
+            <li>Intentar acceder a cuentas o datos de otros usuarios.</li>
+            <li>Interferir con el funcionamiento del servicio (ataques, scraping masivo, abuso de la API o de los límites de uso).</li>
+            <li>Realizar ingeniería inversa, descompilar o modificar la aplicación, salvo en lo permitido por la ley.</li>
+            <li>Usar el asistente de IA para generar o difundir contenido ilegal, dañino o abusivo.</li>
+        </ul>
+        <p>
+            Nos reservamos el derecho de suspender o cerrar cuentas que incumplan estas normas.
+        </p>
+
+        <h2>5. Asistente de inteligencia artificial (Edy)</h2>
+        <div class="destacado">
+            <p>
+                <strong>Importante:</strong> Edy es un asistente conversacional basado en
+                inteligencia artificial. Sus respuestas se generan automáticamente y
+                <strong>pueden contener errores o imprecisiones</strong>. Edy
+                <strong>no es un profesional de la salud</strong> y sus mensajes
+                <strong>no constituyen consejo médico, psicológico, legal ni profesional</strong>
+                de ningún tipo.
+            </p>
+            <p>
+                Si atraviesas una situación de crisis emocional o necesitas ayuda profesional,
+                acude a un profesional de la salud o a los servicios de emergencia de tu país.
+            </p>
+        </div>
+        <ul>
+            <li>El uso del chat con Edy tiene un límite diario de mensajes por cuenta, que puede ajustarse para mantener la calidad del servicio.</li>
+            <li>Al usar el chat, aceptas que tus mensajes se procesen según lo descrito en la <a href="privacidad.html">Política de Privacidad</a>.</li>
+        </ul>
+
+        <h2>6. Bienestar — no es un producto médico</h2>
+        <p>
+            Las funciones de bienestar de Epycus (diario de ánimo, seguimiento de estado
+            emocional, alertas de bienestar) son herramientas de autoconocimiento y organización
+            personal. <strong>No son un dispositivo médico</strong>, no diagnostican, tratan ni
+            previenen ninguna enfermedad, y no sustituyen la atención de profesionales de la
+            salud.
+        </p>
+
+        <h2>7. Propiedad intelectual</h2>
+        <ul>
+            <li>Epycus, su marca, diseño, personajes, ilustraciones y código son propiedad de sus titulares y están protegidos por las leyes de propiedad intelectual. No adquieres ningún derecho sobre ellos por usar el servicio.</li>
+            <li>El contenido que tú creas (entradas de diario, hábitos, misiones, mensajes) es tuyo. Nos concedes únicamente la licencia necesaria para almacenarlo y procesarlo con el fin de prestarte el servicio.</li>
+        </ul>
+
+        <h2>8. Disponibilidad y cambios del servicio</h2>
+        <p>
+            Trabajamos para que el servicio esté disponible de forma continua, pero no podemos
+            garantizar una disponibilidad ininterrumpida ni libre de errores. Podemos añadir,
+            modificar o retirar funciones, y realizar mantenimientos programados o de emergencia.
+            El servicio se ofrece actualmente de forma gratuita; si esto cambiara en el futuro,
+            se comunicará con antelación.
+        </p>
+
+        <h2>9. Limitación de responsabilidad</h2>
+        <p>
+            En la máxima medida permitida por la ley, Epycus se proporciona "tal cual" y "según
+            disponibilidad". No seremos responsables de daños indirectos derivados del uso o la
+            imposibilidad de uso del servicio, incluyendo pérdida de datos por causas ajenas a
+            nuestro control razonable, decisiones tomadas con base en las respuestas del
+            asistente de IA, o interrupciones del servicio. Nada en estos Términos limita
+            derechos que la legislación aplicable te reconozca de forma irrenunciable como
+            consumidor.
+        </p>
+
+        <h2>10. Terminación</h2>
+        <ul>
+            <li>Puedes dejar de usar el servicio y eliminar tu cuenta en cualquier momento.</li>
+            <li>Podemos suspender o cerrar tu cuenta si incumples estos Términos, notificándotelo cuando sea razonablemente posible.</li>
+            <li>Tras la eliminación de la cuenta, tus datos se borran según la <a href="privacidad.html#eliminar-cuenta">Política de Privacidad</a>.</li>
+        </ul>
+
+        <h2>11. Cambios en estos Términos</h2>
+        <p>
+            Podemos actualizar estos Términos ocasionalmente. Publicaremos la versión vigente en
+            esta página con su fecha de actualización, y comunicaremos dentro de la aplicación
+            los cambios significativos. El uso continuado del servicio tras un cambio implica su
+            aceptación.
+        </p>
+
+        <h2>12. Ley aplicable y contacto</h2>
+        <p>
+            Estos Términos se rigen por la legislación aplicable en el país de residencia del
+            titular del servicio, sin perjuicio de las normas de protección al consumidor que
+            te correspondan en tu país de residencia.
+        </p>
+        <p>
+            Para cualquier consulta sobre estos Términos, escríbenos a
+            <a href="mailto:contacto@soltectos.com">contacto@soltectos.com</a>.
+        </p>
+    </main>
+
+    <footer>
+        <p>
+            © 2026 Epycus ·
+            <a href="index.html">Inicio</a>
+            <a href="privacidad.html">Política de Privacidad</a>
+        </p>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+            var toggle = document.getElementById('themeToggle');
+            var stored = null;
+            try { stored = localStorage.getItem('epycus-tema'); } catch (_) { }
+            var prefiereOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var tema = stored || (prefiereOscuro ? 'dark' : 'light');
+            function aplicarTema(t) {
+                if (t === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); toggle.textContent = '☀️'; }
+                else { document.documentElement.removeAttribute('data-theme'); toggle.textContent = '🌙'; }
+            }
+            aplicarTema(tema);
+            toggle.addEventListener('click', function () {
+                tema = tema === 'dark' ? 'light' : 'dark';
+                aplicarTema(tema);
+                try { localStorage.setItem('epycus-tema', tema); } catch (_) { }
+            });
+        })();
+    </script>
+</body>
+</html>

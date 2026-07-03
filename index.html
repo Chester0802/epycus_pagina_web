@@ -344,6 +344,62 @@
             transition: transform 400ms ease;
         }
         .personaje-card:hover img { transform: scale(1.04); }
+        .zoomable { cursor: zoom-in; }
+
+        /* ===================== LIGHTBOX ===================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(5, 7, 15, 0.88);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .lightbox.open { display: flex; animation: lb-fade 200ms ease; }
+        @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+        .lightbox img {
+            max-width: 94vw;
+            max-height: 86vh;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+            cursor: zoom-out;
+            animation: lb-zoom 220ms cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        @keyframes lb-zoom { from { transform: scale(0.94); opacity: 0.4; } to { transform: scale(1); opacity: 1; } }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 1.4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 90vw;
+            text-align: center;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 0.4rem 1.1rem;
+            border-radius: 999px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.2rem;
+            width: 44px; height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: background 150ms ease, transform 150ms ease;
+        }
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.28); transform: scale(1.08); }
         .personaje-card .caption { padding: 1.2rem 1.4rem 1.4rem; }
         .personaje-card .caption h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.3rem; }
         .personaje-card .caption p { color: var(--text-secondary); font-size: 0.9rem; }
@@ -512,7 +568,7 @@
                 </div>
                 <div class="hero-visual">
                     <div class="frame">
-                        <img src="img/login-hero.webp" alt="Personajes de Epycus: conquista tu mejor versión">
+                        <img src="img/login-hero.webp" class="zoomable" alt="Personajes de Epycus: conquista tu mejor versión">
                     </div>
                 </div>
             </div>
@@ -574,7 +630,7 @@
             <div class="personajes-grid">
                 <div class="personaje-card reveal">
                     <div class="img-wrap">
-                        <img src="img/Personaje-1.png" alt="Personajes de Ingeniería de Sistemas y Arquitectura con sus versiones por nivel" loading="lazy">
+                        <img src="img/Personaje-1.png" class="zoomable" alt="Personajes de Ingeniería de Sistemas y Arquitectura con sus versiones por nivel" loading="lazy">
                     </div>
                     <div class="caption">
                         <span class="pill">Evoluciona por niveles</span>
@@ -584,7 +640,7 @@
                 </div>
                 <div class="personaje-card reveal">
                     <div class="img-wrap">
-                        <img src="img/Personaje-3.png" alt="Personajes de Ingeniería Civil y Medicina con sus versiones por nivel" loading="lazy">
+                        <img src="img/Personaje-3.png" class="zoomable" alt="Personajes de Ingeniería Civil y Medicina con sus versiones por nivel" loading="lazy">
                     </div>
                     <div class="caption">
                         <span class="pill">Evoluciona por niveles</span>
@@ -594,7 +650,7 @@
                 </div>
                 <div class="personaje-card reveal">
                     <div class="img-wrap">
-                        <img src="img/Personaje-4.png" alt="Personajes de Derecho y Administración con sus versiones por nivel" loading="lazy">
+                        <img src="img/Personaje-4.png" class="zoomable" alt="Personajes de Derecho y Administración con sus versiones por nivel" loading="lazy">
                     </div>
                     <div class="caption">
                         <span class="pill">Evoluciona por niveles</span>
@@ -636,11 +692,18 @@
             </div>
             <div class="footer-links">
                 <a href="https://app.epycus.es/Autenticacion/Login">Iniciar sesión</a>
-                <a href="/privacidad">Privacidad</a>
-                <a href="/terminos">Términos</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="terminos.html">Términos</a>
             </div>
         </div>
     </footer>
+
+    <!-- ===================== LIGHTBOX ===================== -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+        <button class="lightbox-close" type="button" aria-label="Cerrar imagen ampliada">✕</button>
+        <img id="lightboxImg" src="" alt="">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
 
     <script>
         (function () {
@@ -684,6 +747,36 @@
             } else {
                 document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
             }
+
+            // ── Lightbox: clic en una imagen .zoomable para verla completa ──
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightboxImg');
+            var lightboxCaption = document.getElementById('lightboxCaption');
+
+            function abrirLightbox(src, alt) {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt || '';
+                lightboxCaption.textContent = alt || '';
+                lightboxCaption.style.display = alt ? '' : 'none';
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function cerrarLightbox() {
+                lightbox.classList.remove('open');
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('.zoomable').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    abrirLightbox(img.src, img.alt);
+                });
+            });
+            lightbox.addEventListener('click', cerrarLightbox);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('open')) cerrarLightbox();
+            });
         })();
     </script>
 </body>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad — Epycus</title>
+    <meta name="description" content="Política de privacidad de Epycus: qué datos recopilamos, cómo los usamos, con quién los compartimos y cómo eliminar tu cuenta y tus datos.">
+    <link rel="icon" type="image/webp" href="img/logo.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fef5ff;
+            --bg-elevated: #ffe8f5;
+            --surface: #ffffff;
+            --surface-border: #ffd9f0;
+            --text-primary: #4a2545;
+            --text-secondary: #7d5f7a;
+            --accent: #ff6b9d;
+            --accent-light: #ffe5f0;
+            --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Nunito', 'Inter', sans-serif;
+            --nav-bg: rgba(254, 245, 255, 0.85);
+            --radius-lg: 1rem;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-elevated: #161b26;
+            --surface: #0f1419;
+            --surface-border: #2d1b4e;
+            --text-primary: #e8eaed;
+            --text-secondary: #a8b3cf;
+            --accent: #8b5cf6;
+            --accent-light: #2d1b4e;
+            --font-display: 'Orbitron', 'Inter', sans-serif;
+            --nav-bg: rgba(10, 14, 26, 0.85);
+            --radius-lg: 0.625rem;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-base);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background 300ms ease, color 300ms ease;
+        }
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--surface-border);
+        }
+        .navbar-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.65rem 1.5rem; max-width: 860px; margin: 0 auto;
+        }
+        .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text-primary); }
+        .brand img { width: 34px; height: 34px; border-radius: 9px; }
+        .brand span { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px; }
+        .nav-derecha { display: flex; align-items: center; gap: 0.8rem; }
+        .nav-derecha a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .nav-derecha a:hover { color: var(--accent); }
+        .theme-toggle {
+            background: var(--bg-elevated); border: 1px solid var(--surface-border);
+            border-radius: 999px; width: 38px; height: 38px; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        main { max-width: 860px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+        h1 { font-family: var(--font-display); font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 900; margin-bottom: 0.4rem; }
+        .fecha { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2.2rem; }
+        h2 {
+            font-family: var(--font-display); font-size: 1.25rem; font-weight: 800;
+            margin: 2.2rem 0 0.7rem; padding-top: 0.5rem;
+        }
+        p, li { color: var(--text-secondary); font-size: 0.975rem; }
+        p { margin-bottom: 0.9rem; }
+        ul { margin: 0 0 0.9rem 1.4rem; }
+        li { margin-bottom: 0.45rem; }
+        strong { color: var(--text-primary); }
+        a { color: var(--accent); }
+        .destacado {
+            background: var(--surface); border: 1px solid var(--surface-border);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-lg); padding: 1.1rem 1.3rem; margin: 1rem 0 1.4rem;
+        }
+        .destacado p:last-child { margin-bottom: 0; }
+        footer { border-top: 1px solid var(--surface-border); padding: 1.8rem 1.5rem; text-align: center; }
+        footer p { font-size: 0.85rem; margin: 0; }
+        footer a { margin: 0 0.6rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="index.html">
+                <img src="img/logo.webp" alt="Logo de Epycus">
+                <span>EPYCUS</span>
+            </a>
+            <div class="nav-derecha">
+                <a href="index.html">← Volver al inicio</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Política de Privacidad</h1>
+        <p class="fecha">Última actualización: 3 de julio de 2026</p>
+
+        <p>
+            Esta Política de Privacidad describe cómo <strong>Epycus</strong> ("nosotros", "la
+            aplicación" o "el servicio") recopila, usa, comparte y protege tu información cuando
+            utilizas la aplicación móvil <strong>Epycus</strong> para Android (paquete
+            <strong>es.epycus.app</strong>) o la aplicación web disponible en
+            <a href="https://app.epycus.es">app.epycus.es</a>.
+        </p>
+        <p>
+            Al crear una cuenta o usar el servicio, aceptas las prácticas descritas en esta
+            política. Si no estás de acuerdo, por favor no utilices el servicio.
+        </p>
+
+        <h2>1. Datos que recopilamos</h2>
+        <p><strong>Datos que tú nos proporcionas al crear tu cuenta:</strong></p>
+        <ul>
+            <li>Nombre y correo electrónico.</li>
+            <li>Contraseña (almacenada únicamente como hash cifrado; nunca en texto plano).</li>
+            <li>Fecha de nacimiento, género y carrera universitaria (para personalizar tu personaje y tu experiencia).</li>
+            <li>Si eliges iniciar sesión con Google: tu nombre, correo y foto de perfil de tu cuenta de Google, según lo autorices en la pantalla de consentimiento de Google.</li>
+        </ul>
+        <p><strong>Contenido que generas al usar la aplicación:</strong></p>
+        <ul>
+            <li>Hábitos, misiones y sub-tareas que creas, y su estado de completado.</li>
+            <li>Sesiones y estadísticas del temporizador de enfoque (Pomodoro).</li>
+            <li>Entradas de tu diario y registros de estado de ánimo.</li>
+            <li>Mensajes que envías al asistente de inteligencia artificial (Edy) y sus respuestas.</li>
+            <li>Tu personaje seleccionado, nivel, experiencia, rachas y logros.</li>
+        </ul>
+        <p><strong>Datos técnicos recopilados automáticamente:</strong></p>
+        <ul>
+            <li>Tokens de sesión necesarios para mantener tu cuenta autenticada de forma segura.</li>
+            <li>Registros técnicos del servidor (fecha y hora de peticiones, errores) usados para operar, proteger y depurar el servicio.</li>
+            <li>Tu zona horaria, para calcular correctamente rachas y estadísticas diarias.</li>
+        </ul>
+        <p>
+            No recopilamos tu ubicación precisa, tus contactos, tus archivos, ni identificadores
+            de publicidad. La aplicación no muestra publicidad de terceros.
+        </p>
+
+        <h2>2. Cómo usamos tus datos</h2>
+        <ul>
+            <li>Prestar el servicio: guardar y sincronizar tu progreso entre la app Android y la web.</li>
+            <li>Personalizar tu experiencia: personaje según tu carrera, sugerencias y estadísticas.</li>
+            <li>Generar las respuestas del asistente Edy a partir de tus mensajes y un resumen de tu progreso y bienestar reciente.</li>
+            <li>Calcular la gamificación: experiencia, niveles, rachas y logros.</li>
+            <li>Mantener la seguridad del servicio, prevenir abusos y depurar errores.</li>
+            <li>Responder a tus solicitudes de soporte.</li>
+        </ul>
+        <p>No vendemos tus datos personales ni los usamos para publicidad.</p>
+
+        <h2>3. Con quién compartimos tus datos</h2>
+        <p>Solo compartimos datos con los proveedores estrictamente necesarios para operar el servicio:</p>
+        <ul>
+            <li>
+                <strong>DeepSeek (proveedor del modelo de IA):</strong> cuando usas el chat con
+                Edy, el contenido de tus mensajes de esa conversación y un resumen de tu contexto
+                (nivel, rachas, hábitos activos, estado de ánimo reciente) se envían a la API de
+                DeepSeek para generar la respuesta. Este envío es necesario para el
+                funcionamiento del asistente. Si no deseas que estos datos se compartan,
+                simplemente no utilices la función de chat con Edy — el resto de la aplicación
+                funciona con normalidad.
+            </li>
+            <li>
+                <strong>Google:</strong> únicamente si eliges iniciar sesión con Google, conforme
+                a la <a href="https://policies.google.com/privacy" rel="noopener">política de privacidad de Google</a>.
+            </li>
+            <li>
+                <strong>Proveedor de infraestructura:</strong> nuestros servidores donde se
+                almacenan los datos de forma segura.
+            </li>
+        </ul>
+        <p>
+            No compartimos tus datos con ningún otro tercero, salvo obligación legal (por
+            ejemplo, requerimiento judicial válido).
+        </p>
+
+        <h2>4. Seguridad</h2>
+        <ul>
+            <li>Toda la comunicación entre la aplicación y nuestros servidores viaja cifrada mediante HTTPS/TLS.</li>
+            <li>Las contraseñas se almacenan con hash criptográfico (bcrypt); nunca podemos ver tu contraseña.</li>
+            <li>Las sesiones usan tokens de corta duración revocables; cerrar sesión invalida el token inmediatamente.</li>
+            <li>En la app Android, los tokens se guardan en almacenamiento cifrado del dispositivo.</li>
+        </ul>
+
+        <h2 id="eliminar-cuenta">5. Conservación y eliminación de tus datos</h2>
+        <p>
+            Conservamos tus datos mientras tu cuenta esté activa, para poder prestarte el
+            servicio. Puedes eliminar tu cuenta y todos tus datos en cualquier momento:
+        </p>
+        <div class="destacado">
+            <p><strong>Para eliminar tu cuenta y todos tus datos:</strong></p>
+            <p>
+                📱 <strong>Desde la app Android:</strong> Perfil → Configuración →
+                <strong>Eliminar cuenta</strong>. Se te pedirá confirmar con tu contraseña
+                (las cuentas creadas solo con Google no requieren contraseña).
+            </p>
+            <p>
+                ✉️ <strong>Por correo:</strong> si no puedes acceder a la app, escríbenos a
+                <a href="mailto:contacto@soltectos.com">contacto@soltectos.com</a> desde el
+                correo con el que te registraste, solicitando la eliminación de tu cuenta.
+            </p>
+        </div>
+        <p>
+            La eliminación es <strong>inmediata y permanente</strong>: se borran tu perfil,
+            hábitos, misiones, sesiones de enfoque, entradas de diario, estados de ánimo,
+            conversaciones con Edy, progreso, logros y tokens de sesión. Esta acción no se
+            puede deshacer. Los registros técnicos del servidor que no te identifican
+            directamente pueden conservarse por un periodo limitado por motivos de seguridad.
+        </p>
+
+        <h2>6. Tus derechos</h2>
+        <p>Tienes derecho a:</p>
+        <ul>
+            <li><strong>Acceder</strong> a los datos que tenemos sobre ti.</li>
+            <li><strong>Rectificar</strong> datos inexactos (puedes editar tu perfil desde la propia app).</li>
+            <li><strong>Eliminar</strong> tu cuenta y tus datos (ver sección anterior).</li>
+            <li><strong>Retirar tu consentimiento</strong> dejando de usar el servicio y eliminando tu cuenta.</li>
+        </ul>
+        <p>
+            Para ejercer cualquiera de estos derechos, escríbenos a
+            <a href="mailto:contacto@soltectos.com">contacto@soltectos.com</a>. Responderemos en
+            un plazo razonable, nunca superior a 30 días.
+        </p>
+
+        <h2>7. Menores de edad</h2>
+        <p>
+            Epycus está pensada para estudiantes universitarios y no está dirigida a menores de
+            13 años. No recopilamos deliberadamente datos de menores de 13 años. Si eres padre,
+            madre o tutor y crees que un menor nos ha proporcionado datos personales, contáctanos
+            y eliminaremos esa información.
+        </p>
+
+        <h2>8. Cambios en esta política</h2>
+        <p>
+            Podemos actualizar esta política ocasionalmente. Publicaremos la versión vigente en
+            esta misma página, actualizando la fecha de "última actualización". Si el cambio es
+            significativo, lo comunicaremos dentro de la aplicación.
+        </p>
+
+        <h2>9. Contacto</h2>
+        <p>
+            Si tienes cualquier duda sobre esta política o sobre tus datos, escríbenos a
+            <a href="mailto:contacto@soltectos.com">contacto@soltectos.com</a>.
+        </p>
+    </main>
+
+    <footer>
+        <p>
+            © 2026 Epycus ·
+            <a href="index.html">Inicio</a>
+            <a href="terminos.html">Términos y Condiciones</a>
+        </p>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+            var toggle = document.getElementById('themeToggle');
+            var stored = null;
+            try { stored = localStorage.getItem('epycus-tema'); } catch (_) { }
+            var prefiereOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var tema = stored || (prefiereOscuro ? 'dark' : 'light');
+            function aplicarTema(t) {
+                if (t === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); toggle.textContent = '☀️'; }
+                else { document.documentElement.removeAttribute('data-theme'); toggle.textContent = '🌙'; }
+            }
+            aplicarTema(tema);
+            toggle.addEventListener('click', function () {
+                tema = tema === 'dark' ? 'light' : 'dark';
+                aplicarTema(tema);
+                try { localStorage.setItem('epycus-tema', tema); } catch (_) { }
+            });
+        })();
+    </script>
+</body>
+</html>
